@@ -1,0 +1,221 @@
+## 5. Lesson Structure
+
+### 5.1 Overview
+
+A Lesson is the smallest independent learning unit in EduFormula AI.
+
+Each Lesson contains all information required for:
+
+- Learning presentation
+- AI-assisted teaching
+- Student practice
+- Learning assessment
+- Learning analytics
+- Parent reporting
+
+A Lesson shall be self-contained and reusable across different learning modules without modification.
+
+---
+
+### 5.2 Logical Structure
+
+A Lesson is logically divided into eight functional sections.
+
+```
+Lesson
+│
+├── Metadata
+├── Learning Objectives
+├── Learning Content
+├── Practice
+├── Assessment
+├── Learning Analytics
+├── Parent Report
+└── AI Support
+```
+
+Each section has a clearly defined responsibility and shall remain independent from the others.
+
+---
+
+### 5.3 Section Responsibilities
+
+#### Metadata
+
+Provides lesson identity and classification.
+
+Examples:
+
+- Lesson ID
+- Subject
+- Grade
+- Chapter
+- Lesson title
+- Difficulty
+- Estimated learning time
+
+---
+
+#### Learning Objectives
+
+Defines the competencies that students are expected to achieve after completing the lesson.
+
+Objectives are later used by the Assessment Engine and Learning Analytics.
+
+---
+
+#### Learning Content
+
+Contains the educational knowledge delivered to students.
+
+Learning Content is composed of reusable Learning Blocks.
+
+Typical Learning Blocks include:
+
+- Concept
+- Formula
+- Variable
+- Example
+- Visualization
+- Simulation
+- Experiment
+- Summary
+- Quiz
+- Reference
+
+Additional Learning Block types may be introduced in future versions without modifying the Lesson Schema.
+
+---
+
+#### Practice
+
+Contains learning activities that allow students to reinforce knowledge.
+
+Practice may include:
+
+- Guided Practice
+- Independent Practice
+- Challenge Practice
+
+---
+
+#### Assessment
+
+Measures learning outcomes based on competencies rather than only scores.
+
+Typical assessment dimensions include:
+
+- Understanding
+- Application
+- Reasoning
+- Problem Solving
+- Learning Progress
+
+---
+
+#### Learning Analytics
+
+Stores learning data generated during student interaction.
+
+Examples:
+
+- Completion rate
+- Study duration
+- Retry count
+- AI assistance requests
+- Common mistakes
+- Learning progress
+
+---
+
+#### Parent Report
+
+Provides summarized information for parents.
+
+Typical contents include:
+
+- Student strengths
+- Areas for improvement
+- Learning recommendations
+- Suggested next lessons
+
+---
+
+#### AI Support
+
+Contains structured information used by the AI Teacher.
+
+Examples:
+
+- Common Questions
+- Common Misconceptions
+- Teaching Hints
+- Related Lessons
+
+This section is intended for AI processing and is not necessarily displayed directly to students.
+
+---
+
+### 5.4 Learning Content Blocks
+
+Learning Content is organized into independent Learning Blocks.
+
+Each Learning Block represents one educational element.
+
+Examples include:
+
+| Block Type | Purpose |
+|------------|---------|
+| Concept | Explain the core concept |
+| Formula | Present formulas |
+| Variable | Explain variables |
+| Example | Demonstrate application |
+| Visualization | Illustrate concepts visually |
+| Simulation | Interactive learning |
+| Experiment | Virtual experiments |
+| Summary | Review key ideas |
+| Quiz | Quick understanding check |
+| Reference | Additional resources |
+
+Learning Blocks are ordered according to the instructional design of the lesson.
+
+---
+
+### 5.5 Design Rules
+
+The Lesson Structure shall comply with the following rules.
+
+1. Every Lesson shall contain Metadata.
+
+2. Every Lesson shall define at least one Learning Objective.
+
+3. Every Lesson shall contain Learning Content.
+
+4. Every Lesson shall include a Summary block.
+
+5. If a Formula block exists, at least one Variable block shall also exist.
+
+6. Practice and Assessment are recommended for all lessons.
+
+7. Simulation, Experiment and Quiz are optional.
+
+8. Additional Learning Block types may be added without changing the Lesson Schema.
+
+9. Lesson data shall remain independent of user interface implementation.
+
+10. Lesson data shall remain independent of Learning Engine implementation.
+
+---
+
+### 5.6 Design Philosophy
+
+The Lesson Structure follows the following principles:
+
+- Data First
+- Modular Design
+- Reusability
+- Extensibility
+- Technology Independence
+- AI Compatibility
+
+The Lesson Schema is designed to support future expansion while maintaining backward compatibility with existing lessons.

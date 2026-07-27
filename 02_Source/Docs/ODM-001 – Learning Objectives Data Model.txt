@@ -1,0 +1,143 @@
+# ODM-001 – Learning Objectives Data Model
+
+---
+
+## 1. Purpose
+
+This document defines the standard structure for Learning Objectives in EduFormula AI.
+
+A Learning Objective describes the competency that a student is expected to achieve after completing a lesson.
+
+Learning Objectives are used by:
+
+- Lesson Viewer
+- Learning Runtime
+- Assessment Engine
+- Learning Analytics
+- AI Teacher
+- Parent Dashboard
+
+---
+
+## 2. Design Principles
+
+Learning Objectives shall:
+
+- describe competencies instead of content;
+- be measurable;
+- support assessment;
+- support learning analytics;
+- remain reusable across different lessons.
+
+---
+
+## 3. Objective Structure
+
+| Field | Type | Required | Description |
+|------|------|----------|-------------|
+| objective_id | String | ✔ | Unique identifier |
+| title | String | ✔ | Objective title |
+| description | String | ✔ | Detailed description |
+| competency_id | String | ✔ | Related competency |
+| bloom_level | Enum | ✔ | Bloom taxonomy level |
+| expected_level | Enum | ✔ | Required mastery level |
+| assessment_method | Enum | ✔ | Evaluation method |
+| mastery_threshold | Integer | ✔ | Minimum achievement (%) |
+| priority | Enum | ✔ | High / Medium / Low |
+| prerequisite_objectives | List | ✖ | Required objectives |
+| related_objectives | List | ✖ | Related objectives |
+
+---
+
+## 4. Competency Types
+
+Each objective shall belong to one competency.
+
+Examples:
+
+- Concept Understanding
+- Formula Application
+- Problem Solving
+- Scientific Reasoning
+- Critical Thinking
+- Communication
+- Experiment Skills
+
+---
+
+## 5. Bloom Taxonomy
+
+Allowed values:
+
+- Remember
+- Understand
+- Apply
+- Analyze
+- Evaluate
+- Create
+
+---
+
+## 6. Expected Mastery Level
+
+Allowed values:
+
+- Beginner
+- Developing
+- Proficient
+- Advanced
+
+---
+
+## 7. Assessment Method
+
+Examples:
+
+- Quiz
+- Practice
+- Observation
+- Oral Explanation
+- Simulation
+- Project
+
+---
+
+## 8. Validation Rules
+
+Each Learning Objective shall:
+
+- contain a unique objective_id;
+- belong to one competency;
+- define one Bloom level;
+- define one assessment method;
+- define one mastery threshold.
+
+Mastery Threshold must be between 0 and 100.
+
+---
+
+## 9. Example
+
+Objective ID
+
+OBJ-001
+
+Title
+
+Understand Newton's Second Law
+
+Competency
+
+Concept Understanding
+
+Bloom Level
+
+Understand
+
+Assessment
+
+Quiz
+
+Mastery Threshold
+
+80%

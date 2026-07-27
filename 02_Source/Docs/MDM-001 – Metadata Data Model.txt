@@ -1,0 +1,194 @@
+# MDM-001 – Metadata Data Model
+
+---
+
+## 1. Purpose
+
+This document defines the standard metadata structure for every Lesson in EduFormula AI.
+
+Metadata uniquely identifies a lesson and provides the information required for classification, organization, searching, analytics and future expansion.
+
+---
+
+## 2. Design Principles
+
+Metadata shall:
+
+- uniquely identify a Lesson;
+- remain independent of UI implementation;
+- remain independent of Learning Engine implementation;
+- support searching and filtering;
+- support future versioning.
+
+---
+
+## 3. Metadata Structure
+
+| Field | Type | Required | Default | Validation | Description |
+|------|------|----------|----------|------------|-------------|
+| lesson_id | String | ✔ | None | Unique | Unique lesson identifier |
+| subject | Enum | ✔ | None | Must exist in Subject List | Subject |
+| grade | Integer | ✔ | None | 1–12 | Grade level |
+| chapter_id | String | ✔ | None | Required | Chapter identifier |
+| chapter_title | String | ✔ | None | Required | Chapter name |
+| lesson_number | Integer | ✔ | None | ≥1 | Lesson order |
+| lesson_title | String | ✔ | None | Required | Lesson title |
+| version | String | ✔ | 1.0 | Semantic Version | Lesson version |
+| difficulty | Enum | ✔ | Medium | Easy / Medium / Hard | Lesson difficulty |
+| estimated_time | Integer | ✔ | 45 | >0 | Estimated study time (minutes) |
+| language | String | ✔ | vi | ISO Language Code | Display language |
+| author | String | ✖ | None | - | Lesson author |
+| reviewer | String | ✖ | None | - | Lesson reviewer |
+| status | Enum | ✔ | Draft | Draft / Review / Published / Archived | Lesson status |
+| created_date | Date | ✔ | System | yyyy-mm-dd | Creation date |
+| updated_date | Date | ✔ | System | yyyy-mm-dd | Last update |
+| tags | List<String> | ✖ | [] | - | Search keywords |
+| prerequisites | List<String> | ✖ | [] | - | Required prerequisite lessons |
+
+---
+
+## 4. Enumeration Definitions
+
+### Subject
+
+Allowed values:
+
+- Mathematics
+- Physics
+- Chemistry
+- Biology
+- English
+
+Future subjects may be added.
+
+---
+
+### Difficulty
+
+Allowed values:
+
+- Easy
+- Medium
+- Hard
+
+---
+
+### Status
+
+Allowed values:
+
+- Draft
+- Review
+- Published
+- Archived
+
+---
+
+## 5. Naming Rules
+
+lesson_id format:
+
+SUBJECT-GRADE-CHAPTER-LESSON
+
+Example:
+
+PHY-10-03-05
+
+Meaning:
+
+Physics
+
+↓
+
+Grade 10
+
+↓
+
+Chapter 3
+
+↓
+
+Lesson 5
+
+---
+
+chapter_id format
+
+Example:
+
+PHY-10-03
+
+---
+
+## 6. Validation Rules
+
+Mandatory fields:
+
+- lesson_id
+- subject
+- grade
+- chapter_id
+- lesson_title
+- difficulty
+- estimated_time
+- version
+- status
+
+Validation:
+
+- lesson_id must be unique.
+- estimated_time must be greater than zero.
+- grade must be between 1 and 12.
+- difficulty must be one of Easy, Medium or Hard.
+- status must follow the Status enumeration.
+- version must follow Semantic Versioning.
+
+---
+
+## 7. Example
+
+Lesson Metadata
+
+lesson_id:
+
+PHY-10-03-05
+
+subject:
+
+Physics
+
+grade:
+
+10
+
+chapter_id:
+
+PHY-10-03
+
+chapter_title:
+
+Newton's Laws
+
+lesson_number:
+
+5
+
+lesson_title:
+
+Newton's Second Law
+
+difficulty:
+
+Medium
+
+estimated_time:
+
+45
+
+version:
+
+1.0
+
+status:
+
+Published
