@@ -13,14 +13,20 @@ from Database.connection import get_connection
 
 
 class BaseRepository:
-    """Base infrastructure repository.
+    """Base infrastructure repository."""
 
-    This class only provides generic database access helpers.
-    Business logic and SQL statements belong in concrete repositories.
-    """
+    def __init__(
+        self,
+        connection: sqlite3.Connection | None = None,
+    ) -> None:
 
-    def __init__(self) -> None:
-        self.conn: sqlite3.Connection = get_connection()
+        if connection is None:
+            self.conn = get_connection()
+            self._owns_connection = True
+        else:
+            self.conn = connection
+            self._owns_connection = False
+
         self.conn.row_factory = sqlite3.Row
 
     @property
@@ -87,8 +93,12 @@ class BaseRepository:
         self.conn.rollback()
 
     def close(self) -> None:
-        """Close database connection."""
-        if getattr(self, "conn", None):
+        """Close owned database connection."""
+
+        if (
+            getattr(self, "_owns_connection", False)
+            and getattr(self, "conn", None)
+        ):
             self.conn.close()
 
     def __enter__(self) -> "BaseRepository":

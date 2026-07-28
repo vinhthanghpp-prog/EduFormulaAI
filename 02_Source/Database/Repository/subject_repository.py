@@ -8,11 +8,14 @@ from Database.models import Subject
 from datetime import datetime
 
 
-class SubjectRepository(BaseRepository):
-    """Repository thao tác với bảng subjects"""
+class GradeRepository(BaseRepository):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(
+        self,
+        connection: sqlite3.Connection | None = None,
+    ):
+
+        super().__init__(connection)
 
     def exists_code(self, code: str) -> bool:
         """

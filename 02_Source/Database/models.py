@@ -33,8 +33,6 @@ class Grade:
 class Chapter:
     id: int | None = None
 
-    subject_id: int = 0
-
     grade_id: int = 0
 
     code: str = ""

@@ -4,10 +4,16 @@ from Database.Repository.base_repository import BaseRepository
 from Database.models import Chapter
 
 
+import sqlite3
+
 class ChapterRepository(BaseRepository):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(
+        self,
+        connection: sqlite3.Connection | None = None,
+    ):
+
+        super().__init__(connection)
 
     def exists_code(self, grade_id: int, code: str) -> bool:
         cursor = self.cursor
@@ -25,7 +31,7 @@ class ChapterRepository(BaseRepository):
 
         return cursor.fetchone() is not None
 
-    def add_chapter(self, chapter: Chapter) -> int:
+    def create(self, chapter: Chapter) -> int:
         now = datetime.now().isoformat()
 
         cursor = self.cursor
@@ -77,7 +83,11 @@ class ChapterRepository(BaseRepository):
 
         return Chapter(*row) if row else None
 
-    def get_all(self, grade_id: int | None = None) -> list[Chapter]:
+    def get_by_grade(
+        self,
+        grade_id: int | None = None,
+    ) -> list[Chapter]:
+
         cursor = self.cursor
 
         if grade_id is None:
@@ -144,13 +154,23 @@ class ChapterRepository(BaseRepository):
         return cursor.rowcount > 0
 
     def delete(self, chapter_id: int) -> bool:
+        now = datetime.now().isoformat()
+
         cursor = self.cursor
 
-        cursor.execute("""
-            DELETE
-            FROM chapters
+        cursor.execute(
+            """
+            UPDATE chapters
+            SET
+                status = 0,
+                updated_at = ?
             WHERE id = ?
-        """, (chapter_id,))
+            """,
+            (
+                now,
+                chapter_id,
+            ),
+        )
 
         self.commit()
 
@@ -199,6 +219,52 @@ class ChapterRepository(BaseRepository):
                 keyword,
                 keyword,
             ))
+
+        rows = cursor.fetchall()
+
+        return [Chapter(*row) for row in rows]
+
+    def restore(self, chapter_id: int) -> bool:
+
+        now = datetime.now().isoformat()
+
+        cursor = self.cursor
+
+        cursor.execute(
+            """
+            UPDATE chapters
+            SET
+                status = 1,
+                updated_at = ?
+            WHERE id = ?
+            """,
+            (
+                now,
+                chapter_id,
+            ),
+        )
+
+        self.commit()
+
+        return cursor.rowcount > 0
+
+    def get_active_by_grade(
+        self,
+        grade_id: int,
+    ) -> list[Chapter]:
+
+        cursor = self.cursor
+
+        cursor.execute(
+            """
+            SELECT *
+            FROM chapters
+            WHERE grade_id = ?
+            AND status = 1
+            ORDER BY sort_order, code
+            """,
+            (grade_id,),
+        )
 
         rows = cursor.fetchall()
 
