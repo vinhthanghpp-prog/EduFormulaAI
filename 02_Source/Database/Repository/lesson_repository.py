@@ -6,8 +6,8 @@ from Database.models import Lesson
 
 class LessonRepository(BaseRepository):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, connection=None):
+        super().__init__(connection)
 
     def exists_code(self, chapter_id: int, code: str) -> bool:
         cursor = self.cursor
@@ -25,7 +25,7 @@ class LessonRepository(BaseRepository):
 
         return cursor.fetchone() is not None
 
-    def add_lesson(self, lesson: Lesson) -> int:
+    def create(self, lesson: Lesson) -> int:
         now = datetime.now().isoformat()
 
         cursor = self.cursor
@@ -95,6 +95,27 @@ class LessonRepository(BaseRepository):
                 WHERE chapter_id = ?
                 ORDER BY sort_order, code
             """, (chapter_id,))
+
+        rows = cursor.fetchall()
+
+        return [Lesson(*row) for row in rows]
+
+    def get_by_chapter(
+        self,
+        chapter_id: int,
+    ) -> list[Lesson]:
+
+        cursor = self.cursor
+
+        cursor.execute(
+            """
+            SELECT *
+            FROM lessons
+            WHERE chapter_id = ?
+            ORDER BY sort_order, code
+            """,
+            (chapter_id,),
+        )
 
         rows = cursor.fetchall()
 
