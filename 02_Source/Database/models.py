@@ -94,3 +94,39 @@ class Knowledge:
     created_at: str = ""
 
     updated_at: str = ""
+
+# ==========================================================
+# FORMULA
+# ==========================================================
+
+@dataclass(slots=True)
+class Formula:
+    id: int | None = None
+
+    knowledge_id: int = 0
+
+    code: str = ""
+
+    name: str = ""
+
+    expression: str = ""
+
+    description: str = ""
+
+    meaning: str = ""
+
+    conditions: str = ""
+
+    applications: str = ""
+
+    notes: str = ""
+
+    difficulty_level: int = 1
+
+    sort_order: int = 0
+
+    status: int = 1
+
+    created_at: str = ""
+
+    updated_at: str = ""

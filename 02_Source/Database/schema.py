@@ -159,6 +159,44 @@ CREATE TABLE IF NOT EXISTS knowledge
 );
 """
 
+CREATE_FORMULAS = """
+CREATE TABLE IF NOT EXISTS formulas
+(
+    id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    knowledge_id        INTEGER NOT NULL,
+
+    code                TEXT NOT NULL UNIQUE,
+
+    name                TEXT NOT NULL,
+
+    expression          TEXT NOT NULL,
+
+    description         TEXT,
+
+    meaning             TEXT,
+
+    conditions          TEXT,
+
+    applications        TEXT,
+
+    notes               TEXT,
+
+    difficulty_level    INTEGER DEFAULT 1,
+
+    sort_order          INTEGER DEFAULT 0,
+
+    status              INTEGER NOT NULL DEFAULT 1,
+
+    created_at          TEXT NOT NULL,
+
+    updated_at          TEXT NOT NULL,
+
+    FOREIGN KEY(knowledge_id)
+        REFERENCES knowledge(id)
+);
+"""
+
 # ==========================================================
 # DATABASE SCHEMA
 # ==========================================================
@@ -170,4 +208,5 @@ DATABASE_SCHEMA = [
     CREATE_CHAPTERS,
     CREATE_LESSONS,
     CREATE_KNOWLEDGE,
+    CREATE_FORMULAS,
 ]
