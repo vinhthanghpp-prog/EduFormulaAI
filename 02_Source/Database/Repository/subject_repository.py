@@ -8,7 +8,7 @@ from Database.models import Subject
 from datetime import datetime
 
 
-class GradeRepository(BaseRepository):
+class SubjectRepository(BaseRepository):
 
     def __init__(
         self,
@@ -35,7 +35,7 @@ class GradeRepository(BaseRepository):
 
         return cursor.fetchone()[0] > 0
 
-    def add_subject(self, subject: Subject) -> int:
+    def create(self, subject: Subject) -> int:
         """
         Thêm một môn học mới.
         Trả về ID của bản ghi vừa tạo.

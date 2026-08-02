@@ -56,7 +56,7 @@ class SubjectService(BaseService):
             color=color,
         )
 
-        return self.repository.add_subject(subject)
+        return self.repository.create(subject)
 
     def update_subject(self, subject: Subject) -> bool:
 

@@ -29,7 +29,7 @@ else:
         icon="test",
         color="#0000FF",
     )
-    new_id = repo.add_subject(subject)
+    subject.id = subject_repo.add_subject(subject)
     subject = repo.get_by_id(new_id)
 
 print(subject)

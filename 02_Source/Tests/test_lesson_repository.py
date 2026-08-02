@@ -37,7 +37,7 @@ subject = Subject(
 if subject_repo.exists_code(subject.code):
     subject = subject_repo.get_by_code(subject.code)
 else:
-    subject.id = subject_repo.add_subject(subject)
+    subject.id = subject_repo.create(subject)
     subject = subject_repo.get_by_id(subject.id)
 
 print(subject)
