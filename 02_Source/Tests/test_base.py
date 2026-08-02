@@ -11,9 +11,46 @@ import unittest
 from datetime import datetime
 
 from Database.schema import DATABASE_SCHEMA
+from Database.Repository.formula_repository import FormulaRepository
+from Database.models import Formula
 
 class RepositoryTestCase(unittest.TestCase):
     """Base test case for Repository layer."""
+
+    def create_formula(
+        self,
+        knowledge_id: int,
+        code: str = "F01",
+        name: str = "Formula",
+        expression: str = "F = m * a",
+        description: str = "",
+        meaning: str = "",
+        conditions: str = "",
+        applications: str = "",
+        notes: str = "",
+        difficulty_level: int = 1,
+        sort_order: int = 1,
+        status: int = 1,
+    ) -> int:
+
+        repository = FormulaRepository(self.conn)
+
+        formula = Formula(
+            knowledge_id=knowledge_id,
+            code=code,
+            name=name,
+            expression=expression,
+            description=description,
+            meaning=meaning,
+            conditions=conditions,
+            applications=applications,
+            notes=notes,
+            difficulty_level=difficulty_level,
+            sort_order=sort_order,
+            status=status,
+        )
+
+        return repository.create(formula)
 
     def setUp(self) -> None:
         """Create an in-memory database and initialize schema."""
