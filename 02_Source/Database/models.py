@@ -130,3 +130,34 @@ class Formula:
     created_at: str = ""
 
     updated_at: str = ""
+
+# ==========================================================
+# VARIABLE
+# ==========================================================
+
+@dataclass(slots=True)
+class Variable:
+
+    id: int | None = None
+
+    formula_id: int = 0
+
+    symbol: str = ""
+
+    name: str = ""
+
+    description: str = ""
+
+    unit: str = ""
+
+    variable_type: str = ""
+
+    default_value: str = ""
+
+    sort_order: int = 0
+
+    status: int = 1
+
+    created_at: str = ""
+
+    updated_at: str = ""

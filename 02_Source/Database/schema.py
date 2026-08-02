@@ -196,6 +196,37 @@ CREATE TABLE IF NOT EXISTS formulas
         REFERENCES knowledge(id)
 );
 """
+CREATE_VARIABLES = """
+CREATE TABLE IF NOT EXISTS variables
+(
+    id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    formula_id          INTEGER NOT NULL,
+
+    symbol              TEXT NOT NULL,
+
+    name                TEXT NOT NULL,
+
+    description         TEXT,
+
+    unit                TEXT,
+
+    variable_type       TEXT,
+
+    default_value       TEXT,
+
+    sort_order          INTEGER DEFAULT 0,
+
+    status              INTEGER NOT NULL DEFAULT 1,
+
+    created_at          TEXT NOT NULL,
+
+    updated_at          TEXT NOT NULL,
+
+    FOREIGN KEY(formula_id)
+        REFERENCES formulas(id)
+);
+"""
 
 # ==========================================================
 # DATABASE SCHEMA
@@ -209,4 +240,5 @@ DATABASE_SCHEMA = [
     CREATE_LESSONS,
     CREATE_KNOWLEDGE,
     CREATE_FORMULAS,
+    CREATE_VARIABLES,
 ]
