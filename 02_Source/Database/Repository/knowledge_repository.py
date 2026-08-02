@@ -1,13 +1,14 @@
 from datetime import datetime
 
+from Database import connection
 from Database.Repository.base_repository import BaseRepository
 from Database.models import Knowledge
 
 
 class KnowledgeRepository(BaseRepository):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, connection=None):
+        super().__init__(connection)
 
     def exists_code(self, lesson_id: int, code: str) -> bool:
         cursor = self.cursor
@@ -25,7 +26,7 @@ class KnowledgeRepository(BaseRepository):
 
         return cursor.fetchone() is not None
 
-    def add_knowledge(self, knowledge: Knowledge) -> int:
+    def create(self, knowledge: Knowledge) -> int:
         now = datetime.now().isoformat()
 
         cursor = self.cursor
@@ -97,6 +98,27 @@ class KnowledgeRepository(BaseRepository):
                 WHERE lesson_id = ?
                 ORDER BY sort_order, code
             """, (lesson_id,))
+
+        rows = cursor.fetchall()
+
+        return [Knowledge(*row) for row in rows]
+
+    def get_by_lesson(
+        self,
+        lesson_id: int,
+    ) -> list[Knowledge]:
+
+        cursor = self.cursor
+
+        cursor.execute(
+            """
+            SELECT *
+            FROM knowledge
+            WHERE lesson_id = ?
+            ORDER BY sort_order, code
+            """,
+            (lesson_id,),
+        )
 
         rows = cursor.fetchall()
 

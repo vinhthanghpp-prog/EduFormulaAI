@@ -202,7 +202,43 @@ class RepositoryTestCase(unittest.TestCase):
         sort_order: int = 1,
         status: int = 1,
     ) -> int:
-        pass
+
+        cursor = self.conn.cursor()
+
+        now = self.now()
+
+        cursor.execute(
+            """
+            INSERT INTO lessons
+            (
+                chapter_id,
+                code,
+                name,
+                description,
+                learning_time,
+                sort_order,
+                status,
+                created_at,
+                updated_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                chapter_id,
+                code,
+                name,
+                description,
+                learning_time,
+                sort_order,
+                status,
+                now,
+                now,
+            ),
+        )
+
+        self.conn.commit()
+
+        return cursor.lastrowid
 
 
     def create_knowledge(
