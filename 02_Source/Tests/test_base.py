@@ -252,7 +252,27 @@ class RepositoryTestCase(unittest.TestCase):
         sort_order: int = 1,
         status: int = 1,
     ) -> int:
-        pass
+
+        from Database.Repository.knowledge_repository import (
+            KnowledgeRepository,
+        )
+
+        from Database.models import Knowledge
+
+        repository = KnowledgeRepository(self.conn)
+
+        knowledge = Knowledge(
+            lesson_id=lesson_id,
+            code=code,
+            title=title,
+            description=description,
+            knowledge_type=knowledge_type,
+            difficulty_level=difficulty_level,
+            sort_order=sort_order,
+            status=status,
+        )
+
+        return repository.create(knowledge)
 
     def assertChapterExists(self, chapter_id: int):
         chapter = self.repo.get_by_id(chapter_id)
