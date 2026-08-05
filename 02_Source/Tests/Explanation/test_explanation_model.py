@@ -1,6 +1,6 @@
 import unittest
 
-from Explanation.models import Explanation
+from Explanation.engine import ExplanationEngine
 
 
 class TestExplanationModel(unittest.TestCase):

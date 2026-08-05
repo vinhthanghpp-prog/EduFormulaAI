@@ -1,6 +1,8 @@
 import unittest
 
 from Explanation.engine import ExplanationEngine
+from Explanation.models import Explanation
+from Content.models import LearningContent, Metadata
 
 
 class TestExplanationEngine(unittest.TestCase):
@@ -29,6 +31,32 @@ class TestExplanationEngine(unittest.TestCase):
         result = engine.generate(None)
 
         self.assertIsNotNone(result)
+
+    def test_generate_returns_explanation(self):
+        engine = ExplanationEngine()
+
+        result = engine.generate(None)
+
+        self.assertIsInstance(
+            result,
+            Explanation,
+        )
+
+    def test_generate_maps_title_from_lesson(self):
+        content = LearningContent()
+
+        content.metadata = Metadata(
+            lesson="Vector Addition"
+        )
+
+        engine = ExplanationEngine()
+
+        result = engine.generate(content)
+
+        self.assertEqual(
+            result.title,
+            "Vector Addition",
+        )
 
 
 if __name__ == "__main__":
