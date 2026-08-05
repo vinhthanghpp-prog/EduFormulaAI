@@ -734,3 +734,26 @@ Planned
 
 - BUILD-040D
   Testing Strategy, Coding Standards, Build Workflow, Roadmap, Milestones, Release History.
+
+  # Architecture Decisions
+
+## AR-001
+
+Date:
+2026-08-06
+
+Decision:
+
+Freeze Phase 3 Roadmap
+
+Approved Modules:
+
+- BUILD-041 Content Engine Foundation
+- BUILD-042 Explanation Engine
+- BUILD-043 Visualization Engine
+- BUILD-044 Question Engine
+- BUILD-045 Learning Path Engine
+
+Status:
+
+Approved
