@@ -51,6 +51,9 @@ class RepositoryTestCase(unittest.TestCase):
         )
 
         return repository.create(formula)
+    
+    from Database.Repository.variable_repository import VariableRepository
+    from Database.models import Variable
 
     def setUp(self) -> None:
         """Create an in-memory database and initialize schema."""
@@ -320,3 +323,32 @@ class RepositoryTestCase(unittest.TestCase):
         chapter = self.repo.get_by_id(chapter_id)
         self.assertIsNotNone(chapter)
         self.assertEqual(chapter.status, status)
+
+    def create_variable(
+        self,
+        formula_id: int,
+        symbol: str = "F",
+        name: str = "Force",
+        description: str = "",
+        unit: str = "N",
+        variable_type: str = "",
+        default_value: str = "",
+        sort_order: int = 1,
+        status: int = 1,
+    ) -> int:
+
+        repository = VariableRepository(self.conn)
+
+        variable = Variable(
+            formula_id=formula_id,
+            symbol=symbol,
+            name=name,
+            description=description,
+            unit=unit,
+            variable_type=variable_type,
+            default_value=default_value,
+            sort_order=sort_order,
+            status=status,
+        )
+
+        return repository.create(variable)
