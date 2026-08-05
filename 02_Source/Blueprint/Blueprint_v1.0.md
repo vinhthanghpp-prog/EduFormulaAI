@@ -293,3 +293,238 @@ EduFormulaAI/
 - UI chỉ hiển thị giao diện.
 - Tests chứa toàn bộ Unit Test và Integration Test chính thức.
 - Blueprint là tài liệu kiến trúc của dự án.
+
+---
+
+# 7. Database Architecture
+
+## 7.1 Database Engine
+
+Foundation Platform sử dụng SQLite làm hệ quản trị cơ sở dữ liệu.
+
+Ưu điểm:
+
+- Không cần cài đặt máy chủ.
+- Phù hợp ứng dụng Desktop.
+- Dễ sao lưu.
+- Dễ triển khai.
+- Đủ khả năng mở rộng cho giai đoạn Foundation.
+
+---
+
+## 7.2 Database Access
+
+Mọi truy cập cơ sở dữ liệu phải thông qua Repository.
+
+UI và Service không được thực hiện SQL trực tiếp.
+
+```
+UI
+    ↓
+Service
+    ↓
+Repository
+    ↓
+SQLite
+```
+
+---
+
+## 7.3 BaseRepository
+
+Tất cả Repository kế thừa BaseRepository.
+
+BaseRepository chịu trách nhiệm:
+
+- Quản lý Connection.
+- Tạo Cursor.
+- Commit.
+- Rollback.
+- Execute.
+- Execute Many.
+- Fetch One.
+- Fetch All.
+
+---
+
+## 7.4 Transaction Policy
+
+Mỗi thao tác ghi dữ liệu phải:
+
+- Commit khi thành công.
+- Rollback khi có lỗi.
+
+Không được để Transaction mở ngoài phạm vi Repository.
+
+---
+
+## 7.5 Timestamp
+
+Mọi bảng nghiệp vụ đều sử dụng:
+
+- created_at
+- updated_at
+
+để phục vụ truy vết dữ liệu.
+
+---
+
+## 7.6 Naming Convention
+
+Tên bảng sử dụng chữ thường số nhiều.
+
+Ví dụ:
+
+- subjects
+- grades
+- chapters
+- lessons
+- knowledge
+- formulas
+- variables
+
+---
+
+# 8. Domain Model
+
+Foundation Platform hiện gồm các Domain sau:
+
+```
+Subject
+    │
+    ▼
+Grade
+    │
+    ▼
+Chapter
+    │
+    ▼
+Lesson
+    │
+    ▼
+Knowledge
+    │
+    ▼
+Formula
+    │
+    ▼
+Variable
+```
+
+## Subject
+
+Đại diện cho một môn học.
+
+Ví dụ:
+
+- Toán
+- Vật lý
+- Hóa học
+
+---
+
+## Grade
+
+Đại diện cho khối lớp.
+
+Ví dụ:
+
+- Lớp 10
+- Lớp 11
+- Lớp 12
+
+---
+
+## Chapter
+
+Đại diện cho chương học.
+
+---
+
+## Lesson
+
+Đại diện cho bài học.
+
+---
+
+## Knowledge
+
+Đơn vị kiến thức nhỏ nhất trong bài học.
+
+Knowledge có thể chứa:
+
+- Khái niệm
+- Định nghĩa
+- Công thức
+- Định lý
+- Quy tắc
+
+---
+
+## Formula
+
+Đại diện cho một công thức.
+
+Formula thuộc về một Knowledge.
+
+---
+
+## Variable
+
+Đại diện cho biến số của Formula.
+
+Một Formula có nhiều Variable.
+
+---
+
+# 9. Repository Standard
+
+Mỗi Domain có một Repository riêng.
+
+Repository chịu trách nhiệm:
+
+- CRUD.
+- Truy vấn.
+- Mapping dữ liệu.
+
+Repository không chứa Business Logic.
+
+API chuẩn:
+
+- create()
+- get_by_id()
+- update()
+- delete()
+
+Các hàm mở rộng:
+
+- exists_xxx()
+- get_by_xxx()
+
+Repository kế thừa BaseRepository.
+
+Mọi Repository phải có Unit Test.
+
+---
+
+# 10. Service Standard
+
+Service là tầng chứa Business Logic.
+
+Service không thao tác SQL trực tiếp.
+
+Service chịu trách nhiệm:
+
+- Validation.
+- Kiểm tra dữ liệu.
+- Kiểm tra khóa ngoại.
+- Kiểm tra dữ liệu trùng.
+- Điều phối Repository.
+
+Validation tối thiểu:
+
+- Không để trống dữ liệu bắt buộc.
+- Kiểm tra mã duy nhất.
+- Kiểm tra tính tồn tại của dữ liệu liên quan.
+
+Mọi Service phải có Unit Test.
