@@ -76,3 +76,67 @@ Vector là đại lượng có hướng.
             result[0].content,
             "F = ma",
         )
+
+    def test_parser_returns_two_blocks(self):
+        parser = ContentParser()
+
+        source = """
+    [CONCEPT]
+    Vector là đại lượng có hướng.
+
+    [FORMULA]
+    F = ma
+    """
+
+        result = parser.parse(source)
+
+        self.assertEqual(
+            len(result),
+            2,
+        )
+
+    def test_parser_returns_correct_block_types(self):
+        parser = ContentParser()
+
+        source = """
+    [CONCEPT]
+    Vector là đại lượng có hướng.
+
+    [FORMULA]
+    F = ma
+    """
+
+        result = parser.parse(source)
+
+        self.assertIsInstance(
+            result[0],
+            ConceptBlock,
+        )
+
+        self.assertIsInstance(
+            result[1],
+            FormulaBlock,
+        )
+
+    def test_parser_preserves_block_order(self):
+        parser = ContentParser()
+
+        source = """
+    [FORMULA]
+    F = ma
+
+    [CONCEPT]
+    Vector là đại lượng có hướng.
+    """
+
+        result = parser.parse(source)
+
+        self.assertIsInstance(
+            result[0],
+            FormulaBlock,
+        )
+
+        self.assertIsInstance(
+            result[1],
+            ConceptBlock,
+        )

@@ -25,19 +25,29 @@ class ContentParser:
 
     def parse(self, source):
 
-        block_type = "content"
-        content = ""
+        if source is None:
+            source = ""
 
-        if source:
-            if "[CONCEPT]" in source:
+        result = []
+
+        sections = source.strip().split("\n\n")
+
+        for section in sections:
+
+            block_type = "content"
+            content = ""
+
+            if "[CONCEPT]" in section:
                 block_type = "concept"
-                content = self._extract_content(source)
+                content = self._extract_content(section)
 
-            elif "[FORMULA]" in source:
+            elif "[FORMULA]" in section:
                 block_type = "formula"
-                content = self._extract_content(source)
+                content = self._extract_content(section)
 
-        block = self.factory.create(block_type)
-        block.content = content
+            block = self.factory.create(block_type)
+            block.content = content
 
-        return [block]
+            result.append(block)
+
+        return result
