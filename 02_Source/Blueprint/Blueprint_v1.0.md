@@ -528,3 +528,183 @@ Validation tối thiểu:
 - Kiểm tra tính tồn tại của dữ liệu liên quan.
 
 Mọi Service phải có Unit Test.
+
+---
+
+# 11. Testing Strategy
+
+EduFormula AI áp dụng chiến lược kiểm thử nhiều tầng nhằm đảm bảo chất lượng và khả năng mở rộng.
+
+## Unit Test
+
+Kiểm thử từng Repository và Service độc lập.
+
+Yêu cầu:
+
+- Mỗi Repository phải có Unit Test.
+- Mỗi Service phải có Unit Test.
+
+## Integration Test
+
+Kiểm thử luồng dữ liệu giữa các Domain.
+
+Ví dụ:
+
+Subject → Grade → Chapter → Lesson → Knowledge → Formula → Variable
+
+## Regression Test
+
+Trước mỗi Release phải chạy toàn bộ bộ kiểm thử chính thức.
+
+Lệnh:
+
+```bash
+python -m unittest discover -v -s Tests
+```
+
+Các bài kiểm thử thử nghiệm (Prototype/UI) không thuộc Regression Suite chính thức.
+
+---
+
+# 12. Coding Standards
+
+## Naming
+
+- Class: PascalCase
+- Function: snake_case
+- Variable: snake_case
+- Constant: UPPER_CASE
+
+## Repository
+
+- Không chứa Business Logic.
+
+## Service
+
+- Không thực hiện SQL trực tiếp.
+
+## Model
+
+- Chỉ chứa dữ liệu.
+
+## Comment
+
+Ưu tiên mã nguồn rõ ràng, chỉ bổ sung comment khi giúp giải thích quyết định thiết kế hoặc nghiệp vụ.
+
+---
+
+# 13. Build Workflow
+
+Mọi BUILD phải tuân theo quy trình:
+
+RED
+
+↓
+
+GREEN
+
+↓
+
+REFACTOR
+
+↓
+
+API CONSISTENCY CHECK
+
+↓
+
+FREEZE
+
+↓
+
+GIT
+
+Không chuyển BUILD tiếp theo nếu BUILD hiện tại chưa hoàn thành.
+
+---
+
+# 14. Frozen Roadmap
+
+## Foundation Platform
+
+Status: Completed
+
+Hoàn thành:
+
+- Subject
+- Grade
+- Chapter
+- Lesson
+- Knowledge
+- Formula
+- Variable
+
+## Blueprint
+
+Status: In Progress
+
+- BUILD-040A
+- BUILD-040B
+- BUILD-040C
+- BUILD-040D
+
+## Next Development
+
+Sau khi Blueprint v1.0 được hoàn thành và Freeze, Roadmap cho BUILD-041 trở đi sẽ được xác nhận chính thức và bổ sung vào tài liệu này trước khi triển khai.
+
+---
+
+# 15. Milestones
+
+M1
+
+Foundation Platform v1.0
+
+Completed
+
+M2
+
+Blueprint v1.0
+
+In Progress
+
+M3
+
+Content Platform
+
+Planned
+
+M4
+
+AI Engine
+
+Planned
+
+M5
+
+Learning Experience
+
+Planned
+
+---
+
+# 16. Release History
+
+## Foundation Platform
+
+- BUILD-039
+  Variable Integration Test completed.
+
+## Blueprint
+
+- BUILD-040A
+  Vision, Objectives, Development Principles.
+
+- BUILD-040B
+  Architecture, Technology Stack, Folder Structure.
+
+- BUILD-040C
+  Database Architecture, Domain Model, Repository Standard, Service Standard.
+
+- BUILD-040D
+  Testing Strategy, Coding Standards, Build Workflow, Roadmap, Milestones, Release History.
