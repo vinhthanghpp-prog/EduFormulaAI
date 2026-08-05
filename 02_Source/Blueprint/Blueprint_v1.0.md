@@ -625,9 +625,11 @@ Không chuyển BUILD tiếp theo nếu BUILD hiện tại chưa hoàn thành.
 
 # 14. Frozen Roadmap
 
-## Foundation Platform
-
+## Phase 1
+Foundation Platform
 Status: Completed
+
+BUILD-024 → BUILD-039
 
 Hoàn thành:
 
@@ -639,20 +641,44 @@ Hoàn thành:
 - Formula
 - Variable
 
-## Blueprint
+---
 
-Status: In Progress
+## Phase 2
+Blueprint & Project Governance
+Status: Completed
 
-- BUILD-040A
-- BUILD-040B
-- BUILD-040C
-- BUILD-040D
+BUILD-040A
+Blueprint Vision
 
-## Next Development
+BUILD-040B
+Architecture
 
-Sau khi Blueprint v1.0 được hoàn thành và Freeze, Roadmap cho BUILD-041 trở đi sẽ được xác nhận chính thức và bổ sung vào tài liệu này trước khi triển khai.
+BUILD-040C
+Database & Domain Architecture
+
+BUILD-040D
+Blueprint Completion
 
 ---
+
+## Phase 3
+Content Platform
+Status: Frozen
+
+BUILD-041
+Content Engine Foundation
+
+BUILD-042
+Explanation Engine
+
+BUILD-043
+Visualization Engine
+
+BUILD-044
+Question Engine
+
+BUILD-045
+Learning Path Engine
 
 # 15. Milestones
 
