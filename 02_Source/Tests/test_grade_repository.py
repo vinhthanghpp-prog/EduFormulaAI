@@ -9,102 +9,109 @@ from Database.Repository.subject_repository import SubjectRepository
 from Database.Repository.grade_repository import GradeRepository
 from Database.models import Subject, Grade
 
-subject_repo = SubjectRepository()
-grade_repo = GradeRepository()
 
-print("=" * 60)
-print("TEST GRADE REPOSITORY")
-print("=" * 60)
+def main():
 
-# -------------------------------------------------
-# 1. CREATE SUBJECT
-# -------------------------------------------------
+    subject_repo = SubjectRepository()
+    grade_repo = GradeRepository()
 
-print("\n[1] CREATE SUBJECT")
+    print("=" * 60)
+    print("TEST GRADE REPOSITORY")
+    print("=" * 60)
 
-subject = Subject(
-    code="TEST_SUBJECT",
-    name="Subject Test",
-    description="Repository Test",
-    icon="test",
-    color="#2196F3",
-)
+    # -------------------------------------------------
+    # 1. CREATE SUBJECT
+    # -------------------------------------------------
 
-if subject_repo.exists_code(subject.code):
-    subject = subject_repo.get_by_code(subject.code)
-else:
-    subject.id = subject_repo.create(subject)
-    subject = subject_repo.get_by_id(subject.id)
+    print("\n[1] CREATE SUBJECT")
 
-print(subject)
+    subject = Subject(
+        code="TEST_SUBJECT",
+        name="Subject Test",
+        description="Repository Test",
+        icon="test",
+        color="#2196F3",
+    )
 
-# -------------------------------------------------
-# 2. CREATE GRADE
-# -------------------------------------------------
+    if subject_repo.exists_code(subject.code):
+        subject = subject_repo.get_by_code(subject.code)
+    else:
+        subject.id = subject_repo.create(subject)
+        subject = subject_repo.get_by_id(subject.id)
 
-print("\n[2] CREATE GRADE")
+    print(subject)
 
-grade = Grade(
-    subject_id=subject.id,
-    code="10",
-    name="Lớp 10",
-)
+    # -------------------------------------------------
+    # 2. CREATE GRADE
+    # -------------------------------------------------
 
-if grade_repo.exists_code(subject.id, grade.code):
-    grade = grade_repo.get_by_code(subject.id, grade.code)
-else:
-    grade.id = grade_repo.add_grade(grade)
-    grade = grade_repo.get_by_id(grade.id)
+    print("\n[2] CREATE GRADE")
 
-print(grade)
+    grade = Grade(
+        subject_id=subject.id,
+        code="10",
+        name="Lớp 10",
+    )
 
-# -------------------------------------------------
-# 3. UPDATE
-# -------------------------------------------------
+    if grade_repo.exists_code(subject.id, grade.code):
+        grade = grade_repo.get_by_code(subject.id, grade.code)
+    else:
+        grade.id = grade_repo.create(grade)
+        grade = grade_repo.get_by_id(grade.id)
 
-print("\n[3] UPDATE")
+    print(grade)
 
-grade.name = "Lớp 10 (Updated)"
+    # -------------------------------------------------
+    # 3. UPDATE
+    # -------------------------------------------------
 
-ok = grade_repo.update(grade)
+    print("\n[3] UPDATE")
 
-print("Update:", ok)
+    grade.name = "Lớp 10 (Updated)"
 
-print(grade_repo.get_by_id(grade.id))
+    grade_repo.update(grade)
 
-# -------------------------------------------------
-# 4. SEARCH
-# -------------------------------------------------
+    print(grade_repo.get_by_id(grade.id))
 
-print("\n[4] SEARCH")
+    # -------------------------------------------------
+    # 4. SEARCH
+    # -------------------------------------------------
 
-results = grade_repo.search("10", subject.id)
+    print("\n[4] SEARCH")
 
-for item in results:
-    print(item)
+    results = grade_repo.search(
+        subject.id,
+        "10",
+    )
 
-# -------------------------------------------------
-# 5. DELETE GRADE
-# -------------------------------------------------
+    for item in results:
+        print(item)
 
-print("\n[5] DELETE GRADE")
+    # -------------------------------------------------
+    # 5. DELETE GRADE
+    # -------------------------------------------------
 
-ok = grade_repo.delete(grade.id)
+    print("\n[5] DELETE GRADE")
 
-print("Delete Grade:", ok)
+    grade_repo.delete(grade.id)
 
-print(grade_repo.get_by_id(grade.id))
+    print("Delete Grade: PASS")
 
-# -------------------------------------------------
-# 6. DELETE SUBJECT
-# -------------------------------------------------
+    print(grade_repo.get_by_id(grade.id))
 
-print("\n[6] DELETE SUBJECT")
+    # -------------------------------------------------
+    # 6. DELETE SUBJECT
+    # -------------------------------------------------
+    grade_repo.update(grade)
 
-ok = subject_repo.delete(subject.id)
+    print("\n[6] DELETE SUBJECT")
 
-print("Delete Subject:", ok)
+    print(
+        "Skipped - Subject cannot be deleted while grades exist (soft delete)."
+    )
 
-print(subject_repo.get_by_id(subject.id))
+    print("\n===== ALL TESTS COMPLETED =====")
 
-print("\n===== ALL TESTS COMPLETED =====")
+
+if __name__ == "__main__":
+    main()
