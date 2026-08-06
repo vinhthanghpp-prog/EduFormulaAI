@@ -2,13 +2,18 @@ from Content.models import (
     LearningContent,
     LearningUnit,
 )
+from Content.metadata_builder import MetadataBuilder
 
 
 class LearningContentBuilder:
 
-    def build(self, blocks):
+    def build(self, source, blocks):
 
         content = LearningContent()
+
+        metadata_builder = MetadataBuilder()
+
+        content.metadata = metadata_builder.build(source)
 
         unit = LearningUnit()
 
