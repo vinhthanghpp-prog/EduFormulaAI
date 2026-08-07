@@ -1,41 +1,33 @@
 """
 Lesson Viewer
-BUILD-047A Official Release
+BUILD-049A Official Release
 """
 
+from Modules.Renderer.lesson_view_renderer import LessonViewRenderer
 
 class LessonViewer:
 
-    def __init__(self):
+    def __init__(self, parent=None):
+
+        self.parent = parent
+
+        self.renderer = LessonViewRenderer(parent)
 
         self.lesson = None
+
+        self.cards = []
 
     def load_lesson(self, lesson):
 
         self.lesson = lesson
 
-    def get_lesson_title(self):
+    def load_content(self, content):
 
-        if self.lesson is None:
-            return ""
+        self.load_lesson(content)
 
-        return self.lesson.metadata.lesson
+        blocks = self.get_content_blocks()
 
-"""
-Lesson Viewer
-BUILD-047A Official Release
-"""
-
-
-class LessonViewer:
-
-    def __init__(self):
-
-        self.lesson = None
-
-    def load_lesson(self, lesson):
-
-        self.lesson = lesson
+        self.cards = self.renderer.render(blocks)
 
     def get_lesson_title(self):
 
