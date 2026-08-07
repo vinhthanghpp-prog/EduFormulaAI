@@ -297,3 +297,25 @@ class TestLessonViewer(unittest.TestCase):
         self.assertTrue(
             viewer.refresh_called
         )
+
+    def test_container_starts_empty(self):
+
+        viewer = LessonViewer()
+
+        self.assertEqual(
+            len(viewer.container),
+            0,
+        )
+
+    def test_refresh_display_updates_container(self):
+
+        viewer = LessonViewer()
+
+        viewer.display_cards = ["Card 1"]
+
+        viewer.refresh_display()
+
+        self.assertEqual(
+            len(viewer.container),
+            1,
+        )

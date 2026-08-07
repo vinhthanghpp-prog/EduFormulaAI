@@ -19,7 +19,7 @@ class LessonViewer:
 
         self.display_cards = []
 
-        self.container = object()
+        self.container = []
 
     def load_lesson(self, lesson):
 
@@ -59,5 +59,11 @@ class LessonViewer:
         return self.display_cards
 
     def refresh_display(self):
+
+        self.refresh_called = True
+
+        # Đồng bộ container với display_cards
+        self.container.clear()
+        self.container.extend(self.display_cards)
 
         return self.display_cards
