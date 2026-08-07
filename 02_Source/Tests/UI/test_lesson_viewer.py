@@ -238,3 +238,62 @@ class TestLessonViewer(unittest.TestCase):
                 "refresh_display"
             )
         )
+
+    def test_viewer_has_container(self):
+
+        viewer = LessonViewer()
+
+        self.assertTrue(
+            hasattr(
+                viewer,
+                "container"
+            )
+        )
+
+    def test_refresh_display_returns_display_cards(self):
+
+        viewer = LessonViewer()
+
+        viewer.display_cards = [
+            "Card 1",
+            "Card 2",
+        ]
+
+        result = viewer.refresh_display()
+
+        self.assertEqual(
+            result,
+            viewer.display_cards
+        )
+
+    def test_container_is_initialized(self):
+
+        viewer = LessonViewer()
+
+        self.assertIsNotNone(
+            viewer.container
+        )
+
+    def test_load_content_calls_refresh_display(self):
+
+        class TestLessonViewer(LessonViewer):
+
+            def __init__(self):
+                super().__init__()
+                self.refresh_called = False
+
+            def refresh_display(self):
+                self.refresh_called = True
+                return []
+
+        from Content.models import LearningContent
+
+        viewer = TestLessonViewer()
+
+        viewer.load_content(
+            LearningContent()
+        )
+
+        self.assertTrue(
+            viewer.refresh_called
+        )
