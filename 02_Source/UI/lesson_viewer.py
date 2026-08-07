@@ -17,6 +17,8 @@ class LessonViewer:
 
         self.cards = []
 
+        self.display_cards = []
+
     def load_lesson(self, lesson):
 
         self.lesson = lesson
@@ -28,6 +30,8 @@ class LessonViewer:
         blocks = self.get_content_blocks()
 
         self.cards = self.renderer.render(blocks)
+
+        self.display_cards = self.cards
 
     def get_lesson_title(self):
 
@@ -45,3 +49,11 @@ class LessonViewer:
             return []
 
         return self.lesson.learning_units[0].content_blocks
+
+    def get_display_cards(self):
+
+        return self.display_cards
+
+    def refresh_display(self):
+
+        return self.display_cards

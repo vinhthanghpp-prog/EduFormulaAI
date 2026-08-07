@@ -175,3 +175,66 @@ class TestLessonViewer(unittest.TestCase):
             len(viewer.cards),
             1
         )
+
+    def test_viewer_has_display_cards(self):
+
+        viewer = LessonViewer()
+
+        self.assertTrue(
+            hasattr(
+                viewer,
+                "display_cards"
+            )
+        )
+
+    def test_load_content_updates_display_cards(self):
+
+        from Content.models import (
+            LearningContent,
+            LearningUnit,
+        )
+        from Content.blocks import ConceptBlock
+
+        viewer = LessonViewer()
+
+        content = LearningContent()
+
+        unit = LearningUnit()
+
+        unit.content_blocks.append(
+            ConceptBlock(
+                title="Vector",
+                content="Khái niệm Vector"
+            )
+        )
+
+        content.learning_units.append(unit)
+
+        viewer.load_content(content)
+
+        self.assertEqual(
+            len(viewer.display_cards),
+            1
+        )
+
+    def test_viewer_returns_display_cards(self):
+
+        viewer = LessonViewer()
+
+        self.assertTrue(
+            hasattr(
+                viewer,
+                "get_display_cards"
+            )
+        )
+
+    def test_viewer_has_refresh_display(self):
+
+        viewer = LessonViewer()
+
+        self.assertTrue(
+            hasattr(
+                viewer,
+                "refresh_display"
+            )
+        )
