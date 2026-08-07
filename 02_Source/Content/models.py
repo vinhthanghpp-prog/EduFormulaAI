@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from Content.blocks import ContentBlock
 
 
 @dataclass
@@ -14,10 +15,6 @@ class LearningUnit:
     title: str = ""
     explanation: str = ""
     content_blocks: list["ContentBlock"] = field(default_factory=list)
-
-@dataclass
-class ContentBlock:
-    pass
 
 
 @dataclass

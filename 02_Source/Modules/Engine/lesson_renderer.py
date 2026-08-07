@@ -3,39 +3,17 @@ EduFormula AI
 Dynamic Lesson Renderer
 """
 
-from UI.Cards import CARD_REGISTRY
-from UI.Theme import Spacing
-
-
 class LessonRenderer:
 
-    def __init__(self, viewer):
+    def __init__(self):
 
-        self.viewer = viewer
+        pass
 
-    def clear(self):
+    def render(self, learning_content):
 
-        for widget in self.viewer.winfo_children():
-            widget.destroy()
+        blocks = []
 
-    def render(self, lesson):
+        for unit in learning_content.learning_units:
+            blocks.extend(unit.content_blocks)
 
-        self.clear()
-
-        for section_name, card_class in CARD_REGISTRY.items():
-
-            data = lesson.get(section_name)
-
-            if not data:
-                continue
-
-            card = card_class(
-                self.viewer,
-                data
-            )
-
-            card.pack(
-                fill="x",
-                padx=Spacing.LARGE,
-                pady=Spacing.MEDIUM
-            )
+        return blocks
