@@ -22,15 +22,22 @@ class FormulaCard(BaseCard):
 
     def load(self, formula):
 
-        expression = formula.get(
-            "expression",
-            ""
-        )
+        if hasattr(formula, "content"):
 
-        description = formula.get(
-            "description",
-            ""
-        )
+            expression = formula.content
+            description = formula.title
+
+        else:
+
+            expression = formula.get(
+                "expression",
+                ""
+            )
+
+            description = formula.get(
+                "description",
+                ""
+            )
 
         expression_label = ctk.CTkLabel(
             self.body,

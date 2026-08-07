@@ -25,15 +25,33 @@ class ExampleCard(BaseCard):
     def build(self):
 
         # ==========================
+        # Đọc dữ liệu
+        # ==========================
+
+        if hasattr(self.example, "content"):
+
+            title_text = self.example.title
+            content_text = self.example.content
+
+        else:
+
+            title_text = self.example.get(
+                "title",
+                ""
+            )
+
+            content_text = self.example.get(
+                "content",
+                ""
+            )
+
+        # ==========================
         # Tiêu đề ví dụ
         # ==========================
 
         title = ctk.CTkLabel(
             self.body,
-            text=self.example.get(
-                "title",
-                ""
-            ),
+            text=title_text,
             font=Fonts.CARD_TITLE
         )
 
@@ -48,10 +66,7 @@ class ExampleCard(BaseCard):
 
         content = ctk.CTkLabel(
             self.body,
-            text=self.example.get(
-                "content",
-                ""
-            ),
+            text=content_text,
             justify="left",
             wraplength=760
         )

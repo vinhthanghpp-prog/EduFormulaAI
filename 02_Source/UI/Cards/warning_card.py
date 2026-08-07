@@ -1,6 +1,6 @@
 """
 EduFormula AI
-Tip Card
+Warning Card
 """
 
 import customtkinter as ctk
@@ -9,34 +9,34 @@ from UI.Cards.base_card import BaseCard
 from UI.Theme import Fonts
 
 
-class TipCard(BaseCard):
+class WarningCard(BaseCard):
 
-    def __init__(self, parent, tip):
+    def __init__(self, parent, warning):
 
         super().__init__(
             parent,
-            "💡 Mẹo"
+            "⚠️ Lưu ý"
         )
 
-        self.tip = tip
+        self.warning = warning
 
         self.build()
 
     def build(self):
 
-        if hasattr(self.tip, "content"):
+        if hasattr(self.warning, "content"):
 
-            title_text = self.tip.title
-            content_text = self.tip.content
+            title_text = self.warning.title
+            content_text = self.warning.content
 
         else:
 
-            title_text = self.tip.get(
+            title_text = self.warning.get(
                 "title",
                 ""
             )
 
-            content_text = self.tip.get(
+            content_text = self.warning.get(
                 "content",
                 ""
             )
